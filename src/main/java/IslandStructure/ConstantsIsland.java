@@ -1,2 +1,5 @@
-package IslandStructure;public class ConstantsIsland {
+package IslandStructure;
+
+public class ConstantsIsland {
+
 }

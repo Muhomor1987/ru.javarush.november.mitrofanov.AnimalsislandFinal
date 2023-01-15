@@ -1,2 +1,123 @@
-package util;public class FabricOfAnimals {
+package util;
+
+import IslandStructure.Island;
+import IslandStructure.Location;
+import IslandStructure.Statistics;
+import entities.Animal;
+import entities.ConstantsAnimals;
+import entities.Organisms;
+
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class FabricOfAnimals implements Runnable {
+    ConstantsAnimals constantsAnimals;
+    Island island;
+    Statistics statistics;
+
+
+    private HashMap<Organisms, ArrayList<Animal>> poolAnimals = new HashMap<>();
+
+    HashMap<Organisms, Animal> mapOfFounders = new HashMap<>();
+       /* put(Organisms.WOLF, constantsAnimals.getWOLF());
+        put(Organisms.BOA, constantsAnimals.getBOA());
+        put(Organisms.FOX, constantsAnimals.getFOX());
+        put(Organisms.BEAR, constantsAnimals.getBEAR());
+        put(Organisms.EAGLE, constantsAnimals.getEAGLE());
+        put(Organisms.HORSE, constantsAnimals.getHORSE());
+        put(Organisms.DEER, constantsAnimals.getDEER());
+        put(Organisms.RABBIT, constantsAnimals.getRABBIT());
+        put(Organisms.MOUSE, constantsAnimals.getMOUSE());
+        put(Organisms.GOAT, constantsAnimals.getGOAT());
+        put(Organisms.SHEEP, constantsAnimals.getSHEEP());
+        put(Organisms.BOAR, constantsAnimals.getBOAR());
+        put(Organisms.BUFFALO, constantsAnimals.getBUFFALO());
+        put(Organisms.DUCK, constantsAnimals.getDUCK());
+        put(Organisms.CATERPILLAR, constantsAnimals.getCATERPILLAR());
+        put(Organisms.PLANT, constantsAnimals.getPLANT());
+    }};*/
+
+    /*    Wolf wolfFabric;
+        Boa boaFabric;
+        Fox foxFabric;
+        Bear bearFabric;
+        Eagle eagleFabric;
+        Horse horseFabric;
+        Deer deerFabric;
+        Rabbit rabbitFabric;
+        Mouse mouseFabric;
+        Goat goatFabric;
+        Sheep sheepFabric;
+        Boar boarFabric;
+        Buffalo buffaloFabric;
+        Duck duckFabric;
+        Catterpillar caterpillarFabric;
+        Plant plantFabric;*/
+    public FabricOfAnimals(ConstantsAnimals constantsAnimals, Island island, Statistics statistics) {
+        this.constantsAnimals = constantsAnimals;
+        this.island = island;
+        this.statistics = statistics;
+        for (Organisms TYPE : Organisms.values()
+        ) {
+            mapOfFounders.put(TYPE, new Animal(
+                            constantsAnimals.getMaxWeight().get(TYPE),
+                            constantsAnimals.getSPEED().get(TYPE),
+                    constantsAnimals.getSATURATION().get(TYPE),
+                    TYPE,
+                    constantsAnimals.getICON().get(TYPE),
+                    constantsAnimals.getMapOfFood().get(TYPE)));
+        }
+    }
+/*        this.wolfFabric = constantsAnimals.getWOLF();
+        this.boaFabric = constantsAnimals.getBOA();
+        this.foxFabric = constantsAnimals.getFOX();
+        this.bearFabric = constantsAnimals.getBEAR();
+        this.eagleFabric = constantsAnimals.getEAGLE();
+        this.horseFabric = constantsAnimals.getHORSE();
+        this.deerFabric = constantsAnimals.getDEER();
+        this.rabbitFabric = constantsAnimals.getRABBIT();
+        this.mouseFabric = constantsAnimals.getMOUSE();
+        this.goatFabric = constantsAnimals.getGOAT();
+        this.sheepFabric = constantsAnimals.getSHEEP();
+        this.boarFabric = constantsAnimals.getBOAR();
+        this.buffaloFabric = constantsAnimals.getBUFFALO();
+        this.duckFabric = constantsAnimals.getDUCK();
+        this.caterpillarFabric = constantsAnimals.getCATERPILLAR();
+        this.plantFabric = constantsAnimals.getPLANT();*/
+
+
+
+    public void createNewAnimals(Location location, Organisms TYPE, Statistics statistics) {
+        if (location.getCountAnimalsMapOnLocation().get(TYPE) < constantsAnimals.getMaxAnimalForKindOfLocations().get(TYPE)) {
+            if (poolAnimals.get(TYPE).isEmpty()) {
+                Animal animal = mapOfFounders.get(TYPE).clone();
+                animal.name = animal.getTYPE().name() + statistics.getStatistics().get(TYPE).getAndIncrement();
+                animal.weight = ThreadLocalRandom.current().nextDouble(constantsAnimals.getMaxWeight().get(TYPE));
+                location.getSetLocations().add(animal);
+            } else {
+                location.getSetLocations().add(poolAnimals.get(TYPE).remove(0));
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < island.getXMax(); i++) {
+            for (int j = 0; j < island.getYMax(); j++) {
+                HashMap<Organisms, Integer> countAnimalsMapOnLocationTMP = new HashMap<>();
+                for (Organisms k : Organisms.values()
+                ) {
+                    countAnimalsMapOnLocationTMP.put(k, ThreadLocalRandom.current().nextInt(constantsAnimals.getMaxAnimalForKindOfLocations().get(k)));
+                }
+                island.getLocations()[i][j].setCountAnimalsMapOnLocation(countAnimalsMapOnLocationTMP);
+                for (Organisms k : Organisms.values()
+                ) {
+                    for (int l = 0; l < countAnimalsMapOnLocationTMP.get(k); l++) {
+                        island.getLocations()[i][j].getSetLocations().add(mapOfFounders.get(k));
+                        statistics.getStatistics().get(k).incrementAndGet();
+                    }
+                }
+            }
+        }
+    }
 }

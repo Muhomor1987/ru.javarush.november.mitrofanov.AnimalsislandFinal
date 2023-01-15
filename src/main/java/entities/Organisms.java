@@ -1,20 +1,20 @@
-package org.example.entities;
+package entities;
 
 public enum Organisms {
-    BEAR,
-    BOA,
-    EAGLE,
-    FOX,
     WOLF,
+    BOA,
+    FOX,
+    BEAR,
+    EAGLE,
+    HORSE,
+    DEER,
+    RABBIT,
+    MOUSE,
+    GOAT,
+    SHEEP,
     BOAR,
     BUFFALO,
-    CATERPILLAR,
-    DEER,
     DUCK,
-    GOAT,
-    HORSE,
-    MOUSE,
-    RABBIT,
-    SHEEP,
+    CATERPILLAR,
     PLANT
 }

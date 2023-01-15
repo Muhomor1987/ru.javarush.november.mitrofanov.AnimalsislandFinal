@@ -1,0 +1,225 @@
+{
+  "maxAnimalOnLocation_Wolf" : 30,
+  "maxAnimalOnLocation_Boa" : 30,
+  "maxAnimalOnLocation_Fox" : 30,
+  "maxAnimalOnLocation_Bear" : 5,
+  "maxAnimalOnLocation_Eagle" : 20,
+  "maxAnimalOnLocation_Horse" : 20,
+  "maxAnimalOnLocation_Deer" : 20,
+  "maxAnimalOnLocation_Rabbit" : 150,
+  "maxAnimalOnLocation_Mouse" : 500,
+  "maxAnimalOnLocation_Goat" : 140,
+  "maxAnimalOnLocation_Sheep" : 140,
+  "maxAnimalOnLocation_Boar" : 50,
+  "maxAnimalOnLocation_Duck" : 10,
+  "maxAnimalOnLocation_Buffalo" : 200,
+  "maxAnimalOnLocation_Caterpillar" : 1000,
+  "maxAnimalOnLocation_Plant" : 200,
+  "rabbit" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC07",
+    "speed" : 2,
+    "weight_MAX" : 2.0,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 0.45,
+    "type" : "RABBIT"
+  },
+  "wolf" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC3A",
+    "speed" : 3,
+    "weight_MAX" : 50.0,
+    "map_OF_FOOD" : {
+      "BOAR" : 15,
+      "BUFFALO" : 10,
+      "GOAT" : 60,
+      "HORSE" : 10,
+      "MOUSE" : 80,
+      "DEER" : 15,
+      "RABBIT" : 60,
+      "DUCK" : 40
+    },
+    "saturation" : 8.0,
+    "type" : "WOLF"
+  },
+  "eagle" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83E\uDD85",
+    "speed" : 3,
+    "weight_MAX" : 6.0,
+    "map_OF_FOOD" : {
+      "MOUSE" : 90,
+      "RABBIT" : 90,
+      "FOX" : 10,
+      "DUCK" : 80
+    },
+    "saturation" : 1.0,
+    "type" : "EAGLE"
+  },
+  "horse" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC0E",
+    "speed" : 4,
+    "weight_MAX" : 400.0,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 60.0,
+    "type" : "HORSE"
+  },
+  "deer" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83E\uDD8C",
+    "speed" : 4,
+    "weight_MAX" : 300.0,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 50.0,
+    "type" : "DEER"
+  },
+  "bear" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC3B",
+    "speed" : 2,
+    "weight_MAX" : 500.0,
+    "map_OF_FOOD" : {
+      "BOAR" : 50,
+      "BOA" : 80,
+      "BUFFALO" : 20,
+      "GOAT" : 70,
+      "HORSE" : 40,
+      "MOUSE" : 90,
+      "DEER" : 80,
+      "RABBIT" : 80,
+      "DUCK" : 10
+    },
+    "saturation" : 80.0,
+    "type" : "BEAR"
+  },
+  "boa" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC0D",
+    "speed" : 1,
+    "weight_MAX" : 15.0,
+    "map_OF_FOOD" : {
+      "MOUSE" : 40,
+      "RABBIT" : 20,
+      "FOX" : 15,
+      "DUCK" : 10
+    },
+    "saturation" : 3.0,
+    "type" : "BOA"
+  },
+  "fox" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83E\uDD8A",
+    "speed" : 2,
+    "weight_MAX" : 8.0,
+    "map_OF_FOOD" : {
+      "CATERPILLAR" : 40,
+      "MOUSE" : 90,
+      "RABBIT" : 70,
+      "DUCK" : 60
+    },
+    "saturation" : 2.0,
+    "type" : "FOX"
+  },
+  "duck" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83E\uDD86",
+    "speed" : 4,
+    "weight_MAX" : 1.0,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 15.0,
+    "type" : "DUCK"
+  },
+  "caterpillar" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC1B",
+    "speed" : 4,
+    "weight_MAX" : 1.0,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 15.0,
+    "type" : "CATERPILLAR"
+  },
+  "goat" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC10",
+    "speed" : 3,
+    "weight_MAX" : 60.0,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 10.0,
+    "type" : "GOAT"
+  },
+  "mouse" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC01",
+    "speed" : 1,
+    "weight_MAX" : 0.05,
+    "map_OF_FOOD" : {
+      "CATERPILLAR" : 90,
+      "PLANT" : 100
+    },
+    "saturation" : 0.1,
+    "type" : "MOUSE"
+  },
+  "sheep" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC11",
+    "speed" : 1,
+    "weight_MAX" : 0.05,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 0.1,
+    "type" : "SHEEP"
+  },
+  "buffalo" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC02",
+    "speed" : 3,
+    "weight_MAX" : 700.0,
+    "map_OF_FOOD" : {
+      "PLANT" : 100
+    },
+    "saturation" : 100.0,
+    "type" : "BUFFALO"
+  },
+  "boar" : {
+    "name" : null,
+    "weight" : 0.0,
+    "icon" : "\uD83D\uDC17",
+    "speed" : 2,
+    "weight_MAX" : 400.0,
+    "map_OF_FOOD" : {
+      "CATERPILLAR" : 90,
+      "MOUSE" : 50,
+      "PLANT" : 100
+    },
+    "saturation" : 50.0,
+    "type" : "BOAR"
+  }
+}
