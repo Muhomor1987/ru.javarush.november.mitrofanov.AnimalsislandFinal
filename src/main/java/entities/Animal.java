@@ -31,15 +31,4 @@ public  class Animal implements Cloneable{
         this.MAP_OF_FOOD = MAP_OF_FOOD;
     }
 
-
-    @Override
-    public Animal clone() {
-        try {
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
-            return (Animal) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
-    }
-
 }
