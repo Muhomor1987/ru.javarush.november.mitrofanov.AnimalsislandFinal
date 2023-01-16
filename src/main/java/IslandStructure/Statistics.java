@@ -29,20 +29,4 @@ public class Statistics implements Serializable {
         put(Organisms.CATERPILLAR,new AtomicInteger());
         put(Organisms.PLANT,new AtomicInteger());
     }};
-/*    private AtomicInteger totalCounterWolf;
-    private AtomicInteger totalCounterBoa;
-    private AtomicInteger totalCounterFox;
-    private AtomicInteger totalCounterBear;
-    private AtomicInteger totalCounterEagle;
-    private AtomicInteger totalCounterHorse;
-    private AtomicInteger totalCounterDeer;
-    private AtomicInteger totalCounterRabbit;
-    private AtomicInteger totalCounterMouse;
-    private AtomicInteger totalCounterGoat;
-    private AtomicInteger totalCounterSheep;
-    private AtomicInteger totalCounterBoar;
-    private AtomicInteger totalCounterDuck;
-    private AtomicInteger totalCounterBuffalo;
-    private AtomicInteger totalCounterCaterpillar;
-    private AtomicInteger totalCounterPlant;*/
 }

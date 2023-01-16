@@ -19,40 +19,6 @@ public class FabricOfAnimals implements Runnable {
     private HashMap<Organisms, ArrayList<Animal>> poolAnimals = new HashMap<>();
 
     HashMap<Organisms, Animal> mapOfFounders = new HashMap<>();
-       /* put(Organisms.WOLF, constantsAnimals.getWOLF());
-        put(Organisms.BOA, constantsAnimals.getBOA());
-        put(Organisms.FOX, constantsAnimals.getFOX());
-        put(Organisms.BEAR, constantsAnimals.getBEAR());
-        put(Organisms.EAGLE, constantsAnimals.getEAGLE());
-        put(Organisms.HORSE, constantsAnimals.getHORSE());
-        put(Organisms.DEER, constantsAnimals.getDEER());
-        put(Organisms.RABBIT, constantsAnimals.getRABBIT());
-        put(Organisms.MOUSE, constantsAnimals.getMOUSE());
-        put(Organisms.GOAT, constantsAnimals.getGOAT());
-        put(Organisms.SHEEP, constantsAnimals.getSHEEP());
-        put(Organisms.BOAR, constantsAnimals.getBOAR());
-        put(Organisms.BUFFALO, constantsAnimals.getBUFFALO());
-        put(Organisms.DUCK, constantsAnimals.getDUCK());
-        put(Organisms.CATERPILLAR, constantsAnimals.getCATERPILLAR());
-        put(Organisms.PLANT, constantsAnimals.getPLANT());
-    }};*/
-
-    /*    Wolf wolfFabric;
-        Boa boaFabric;
-        Fox foxFabric;
-        Bear bearFabric;
-        Eagle eagleFabric;
-        Horse horseFabric;
-        Deer deerFabric;
-        Rabbit rabbitFabric;
-        Mouse mouseFabric;
-        Goat goatFabric;
-        Sheep sheepFabric;
-        Boar boarFabric;
-        Buffalo buffaloFabric;
-        Duck duckFabric;
-        Catterpillar caterpillarFabric;
-        Plant plantFabric;*/
     public FabricOfAnimals(ConstantsAnimals constantsAnimals, Island island, Statistics statistics) {
         this.constantsAnimals = constantsAnimals;
         this.island = island;
@@ -68,22 +34,7 @@ public class FabricOfAnimals implements Runnable {
                     constantsAnimals.getMapOfFood().get(TYPE)));
         }
     }
-/*        this.wolfFabric = constantsAnimals.getWOLF();
-        this.boaFabric = constantsAnimals.getBOA();
-        this.foxFabric = constantsAnimals.getFOX();
-        this.bearFabric = constantsAnimals.getBEAR();
-        this.eagleFabric = constantsAnimals.getEAGLE();
-        this.horseFabric = constantsAnimals.getHORSE();
-        this.deerFabric = constantsAnimals.getDEER();
-        this.rabbitFabric = constantsAnimals.getRABBIT();
-        this.mouseFabric = constantsAnimals.getMOUSE();
-        this.goatFabric = constantsAnimals.getGOAT();
-        this.sheepFabric = constantsAnimals.getSHEEP();
-        this.boarFabric = constantsAnimals.getBOAR();
-        this.buffaloFabric = constantsAnimals.getBUFFALO();
-        this.duckFabric = constantsAnimals.getDUCK();
-        this.caterpillarFabric = constantsAnimals.getCATERPILLAR();
-        this.plantFabric = constantsAnimals.getPLANT();*/
+
 
 
 
