@@ -44,13 +44,13 @@ public class FabricOfAnimals implements Runnable {
                 Animal animal = mapOfFounders.get(TYPE).clone();
                 animal.name = animal.getTYPE().name() + statistics.getStatistics().get(TYPE).getAndIncrement();
                 animal.weight = ThreadLocalRandom.current().nextDouble(constantsAnimals.getMaxWeight().get(TYPE));
-                location.getSetLocations().add(animal);
+                location.getAnimalsOnLocation().add(animal);
             } else {
-                location.getSetLocations().add(poolAnimals.get(TYPE).remove(0));
+                location.getAnimalsOnLocation().add(poolAnimals.get(TYPE).remove(0));
             }
         }
     }
-
+//Запуск создания животных на всех локациях(нужно сделать одновременный запуск для всех локаций)
     @Override
     public void run() {
         for (int i = 0; i < island.getXMax(); i++) {
@@ -64,7 +64,7 @@ public class FabricOfAnimals implements Runnable {
                 for (Organisms k : Organisms.values()
                 ) {
                     for (int l = 0; l < countAnimalsMapOnLocationTMP.get(k); l++) {
-                        island.getLocations()[i][j].getSetLocations().add(mapOfFounders.get(k));
+                        island.getLocations()[i][j].getAnimalsOnLocation().add(mapOfFounders.get(k));
                         statistics.getStatistics().get(k).incrementAndGet();
                     }
                 }
