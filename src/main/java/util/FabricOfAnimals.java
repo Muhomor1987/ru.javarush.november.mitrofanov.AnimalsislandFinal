@@ -6,10 +6,11 @@ import IslandStructure.Statistics;
 import entities.Animal;
 import entities.ConstantsAnimals;
 import entities.Organisms;
+import lombok.Getter;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-
+@Getter
 public class FabricOfAnimals implements Runnable {
     ConstantsAnimals constantsAnimals;
     Island island;

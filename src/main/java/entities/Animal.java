@@ -22,6 +22,8 @@ public  class Animal implements Cloneable{
     private final String icon;
     private final HashMap<Organisms, Integer> MAP_OF_FOOD;
 
+    private boolean isLife = true;
+
     public Animal(double WEIGHT_MAX, int SPEED, double SATURATION, Organisms TYPE, String icon, HashMap<Organisms, Integer> MAP_OF_FOOD) {
         this.WEIGHT_MAX = WEIGHT_MAX;
         this.SPEED = SPEED;
