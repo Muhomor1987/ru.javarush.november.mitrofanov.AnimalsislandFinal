@@ -7,17 +7,21 @@ import entities.Animal;
 import entities.ConstantsAnimals;
 import entities.Organisms;
 import lombok.Getter;
+import lombok.Synchronized;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.Lock;
+
 @Getter
 public class FabricOfAnimals implements Runnable {
     ConstantsAnimals constantsAnimals;
     Island island;
     Statistics statistics;
+    Lock lockFabric;
 
-
-    private HashMap<Organisms, ArrayList<Animal>> poolAnimals = new HashMap<>();
+    private ConcurrentHashMap<Organisms, ArrayList<Animal>> poolAnimals;
 
     HashMap<Organisms, Animal> mapOfFounders = new HashMap<>();
     public FabricOfAnimals(ConstantsAnimals constantsAnimals, Island island, Statistics statistics) {
