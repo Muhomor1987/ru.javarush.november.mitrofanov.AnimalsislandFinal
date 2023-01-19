@@ -49,9 +49,9 @@ public class FabricOfAnimals implements Runnable {
                 Animal animal = mapOfFounders.get(TYPE).clone();
                 animal.name = animal.getTYPE().name() + statistics.getStatistics().get(TYPE).getAndIncrement();
                 animal.weight = ThreadLocalRandom.current().nextDouble(constantsAnimals.getMaxWeight().get(TYPE));
-                location.getAnimalsOnLocation().add(animal);
+                location.getAnimalsIn().add(animal);
             } else {
-                location.getAnimalsOnLocation().add(poolAnimals.get(TYPE).remove(0));
+                location.getAnimalsIn().add(poolAnimals.get(TYPE).remove(0));
             }
         }
     }
