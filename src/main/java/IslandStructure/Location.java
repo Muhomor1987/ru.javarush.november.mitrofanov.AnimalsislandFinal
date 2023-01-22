@@ -7,6 +7,7 @@ import lombok.Setter;
 import util.FabricOfAnimals;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Lock;
@@ -17,14 +18,21 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Location implements Runnable {
     FabricOfAnimals fabricOfAnimals;
     Statistics statistics;
-    final Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
+
+    private boolean isCreated = false;
+
+    public Location(FabricOfAnimals fabricOfAnimals, Statistics statistics) {
+        this.fabricOfAnimals = fabricOfAnimals;
+        this.statistics = statistics;
+    }
 
     private ConcurrentLinkedQueue<Animal> animalsOnLocation = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Animal> animalsForMoving = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Animal> animalsIn = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Animal> plantSet = new ConcurrentLinkedQueue<>();
 
-    HashMap<Organisms, Integer> countAnimalsMapOnLocation;
+    ConcurrentHashMap<Organisms, Integer> countAnimalsMapOnLocation;
 
 
     //засыпает на 2 секунды через константа жизненый цикл
@@ -62,10 +70,10 @@ public class Location implements Runnable {
                 reproduction(animalFirst, animalSecond);
                 lock.lock();
                 eat(animalFirst, animalSecond, animalFirstTYPE, animalSecondTYPE);
-                wait(1000);
+                Thread.sleep(100);
                 lock.lock();
                 animalsOnLocation.addAll(animalsIn);
-                wait(100);
+                Thread.sleep(10);
                 //move(animalFirst, animalSecond)
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -100,6 +108,7 @@ public class Location implements Runnable {
                     animal.setWeight(animal.getWEIGHT_MAX());
                 }
                 fabricOfAnimals.getPoolAnimals().get(Organisms.PLANT).add(plant);
+
             } else {
                 if (animal.getSATURATION() <= plantSet.size()) {
                     animal.setWeight(animal.getWEIGHT_MAX());
@@ -123,6 +132,7 @@ public class Location implements Runnable {
                 animalSecond.setWeight(animalSecond.getWeight() + animalFirst.getWeight());
             }
             countAnimalsMapOnLocation.put(animalFirstTYPE, countAnimalsMapOnLocation.get(animalFirstTYPE) - 1);
+            statistics.getStatistics().get(animalFirstTYPE).decrementAndGet();
             fabricOfAnimals.getPoolAnimals().get(animalFirstTYPE).add(animalFirst);
         }
     }
@@ -130,6 +140,7 @@ public class Location implements Runnable {
     private void reproduction(Animal animalFirst, Animal animalSecond) {
         if (animalFirst.getTYPE() == animalSecond.getTYPE()) {
             fabricOfAnimals.createNewAnimals(this, animalFirst.getTYPE(), statistics);
+
         }
     }
 

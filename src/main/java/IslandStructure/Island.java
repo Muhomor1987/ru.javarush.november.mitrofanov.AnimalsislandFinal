@@ -1,6 +1,7 @@
 package IslandStructure;
 
 import entities.Animal;
+import entities.ConstantsAnimals;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -10,9 +11,12 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 
 @Getter
 public class Island{
+    Lock islandLock;
+    ConstantsAnimals constantsAnimals;
     private String name;
 
     private int xMax;
@@ -21,15 +25,17 @@ public class Island{
 
     private HashSet<Location> locationHashSet;
 
-    private int totalLocations;
+    private final int totalLocations;
 
-    private Location[][] locations;
+    private final Location[][] locations;
 
-    public Island(String name, int xMax, int yMax) {
+    public Island(String name, ConstantsAnimals constantsAnimals) {
+
         this.name = name;
-        this.xMax = xMax;
-        this.yMax = yMax;
+        this.xMax = constantsAnimals.getXCoordinate();
+        this.yMax = constantsAnimals.getYCoordinate();
         totalLocations = xMax * yMax;
+        locations = new Location[xMax][yMax];
     }
 
 
