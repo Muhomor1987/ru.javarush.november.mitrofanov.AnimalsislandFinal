@@ -10,20 +10,9 @@ import java.util.HashMap;
 @Getter
 public class ConstantsAnimals implements Serializable {
 
-    private final HashMap<Organisms,Integer> eatPlantMuch = new HashMap<>(){{
-        put(Organisms.HORSE, 20);
-        put(Organisms.DEER, 20);
-        put(Organisms.RABBIT,1);
-        put(Organisms.MOUSE, 1);
-        put(Organisms.GOAT, 10);
-        put(Organisms.SHEEP, 10);
-        put(Organisms.BOAR, 10);
-        put(Organisms.BUFFALO, 30);
-        put(Organisms.DUCK, 3);
-        put(Organisms.CATERPILLAR, 1);
+    int xCoordinate = 100;
+    int yCoordinate = 20;
 
-
-    }};
     private final HashMap<Organisms, Integer> maxAnimalForKindOfLocations = new HashMap<Organisms, Integer>() {
         {
             put(Organisms.WOLF, 30);
@@ -123,8 +112,8 @@ public class ConstantsAnimals implements Serializable {
             put(Organisms.BOAR, 50.);
             put(Organisms.BUFFALO, 100.);
             put(Organisms.DUCK, 0.15);
-            put(Organisms.CATERPILLAR, null);
-            put(Organisms.PLANT, null);
+            put(Organisms.CATERPILLAR, 0.);
+            put(Organisms.PLANT, 0.);
         }
     };
     private final HashMap<Organisms, HashMap<Organisms, Integer>> MapOfFood = new HashMap<>() {

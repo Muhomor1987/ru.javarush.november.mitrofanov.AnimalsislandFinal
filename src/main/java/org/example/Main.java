@@ -37,6 +37,8 @@ public class Main {
                 executorService.execute(island.getLocations()[i][j]);
             }
         }
+        Thread.sleep(5000);
+        System.out.println(island.getLocations()[5][5].getAnimalsOnLocation().get(2).getSPEED());
 
 
 
