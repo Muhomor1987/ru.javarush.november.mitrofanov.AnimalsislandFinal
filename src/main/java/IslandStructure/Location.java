@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import util.FabricOfAnimals;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -18,7 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Location implements Runnable {
     FabricOfAnimals fabricOfAnimals;
     Statistics statistics;
-    private final Lock lock = new ReentrantLock();
+    private  Lock lock = new ReentrantLock();
 
     private boolean isCreated = false;
 
@@ -27,7 +28,7 @@ public class Location implements Runnable {
         this.statistics = statistics;
     }
 
-    private ConcurrentLinkedQueue<Animal> animalsOnLocation = new ConcurrentLinkedQueue<>();
+    private ArrayList<Animal> animalsOnLocation = new ArrayList<>();
     private ConcurrentLinkedQueue<Animal> animalsForMoving = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Animal> animalsIn = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Animal> plantSet = new ConcurrentLinkedQueue<>();
@@ -38,49 +39,44 @@ public class Location implements Runnable {
     //засыпает на 2 секунды через константа жизненый цикл
     public void liveLocation() {
         while (true) {
-            try {
+
                 Animal animalFirst = null;
                 Animal animalSecond = null;
 
-                lock.lock();
+ //               this.lock.lock();
                 if (animalsOnLocation.isEmpty()) {
                     while (animalsOnLocation.isEmpty()) {
-                        lock.unlock();
-                        wait(1000);
+ //                       this.lock.unlock();
+//                        Thread.sleep(1000);
                     }
                 } else {
-                    lock.lock();
-                    animalFirst = animalsOnLocation.poll();
+ //                   this.lock.lock();
+                    animalFirst = animalsOnLocation.remove(ThreadLocalRandom.current().nextInt(animalsOnLocation.size()-1));
                 }
                 if (animalsOnLocation.isEmpty()) {
                     while (animalsOnLocation.isEmpty()) {
-                        lock.unlock();
-                        wait(1000);
+ //                       this.lock.unlock();
+//                        Thread.sleep(1000);
                     }
                 } else {
-                    lock.lock();
-                    animalSecond = animalsOnLocation.poll();
+  //                  this.lock.lock();
+                    animalSecond = animalsOnLocation.remove(ThreadLocalRandom.current().nextInt(animalsOnLocation.size()-1));
                 }
-                lock.unlock();
+  //              this.lock.unlock();
                 assert animalFirst != null;
                 Organisms animalFirstTYPE = animalFirst.getTYPE();
                 assert animalSecond != null;
                 Organisms animalSecondTYPE = animalSecond.getTYPE();
                 //является ли животные одного вида
                 reproduction(animalFirst, animalSecond);
-                lock.lock();
+ //               this.lock.lock();
                 eat(animalFirst, animalSecond, animalFirstTYPE, animalSecondTYPE);
-                Thread.sleep(100);
-                lock.lock();
+//                Thread.sleep(100);
+  //             this.lock.lock();
                 animalsOnLocation.addAll(animalsIn);
-                Thread.sleep(10);
+//                Thread.sleep(10);
                 //move(animalFirst, animalSecond)
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            finally {
-                lock.unlock();
-            }
+
         }
     }
 
@@ -92,13 +88,14 @@ public class Location implements Runnable {
             if (animalSecond.getMAP_OF_FOOD().containsKey(animalFirstTYPE)) {
                 whoEating(animalFirst, animalSecond, animalFirstTYPE);
             }
-        } else {
+/*        } else {
             eatPlant(animalFirst);
             eatPlant(animalSecond);
+        }*/
         }
     }
 
-    private void eatPlant(Animal animal) {
+/*    private void eatPlant(Animal animal) {
         if (animal.getMAP_OF_FOOD().containsKey(Organisms.PLANT)) {
             if (animal.getWeight() <= 1) {
                 animal.setWeight(animal.getWEIGHT_MAX());
@@ -122,7 +119,7 @@ public class Location implements Runnable {
                 }
             }
         }
-    }
+    }*/
 
     private void whoEating(Animal animalFirst, Animal animalSecond, Organisms animalFirstTYPE) {
         if (ThreadLocalRandom.current().nextInt(100) >= animalSecond.getMAP_OF_FOOD().get(animalFirstTYPE)) {

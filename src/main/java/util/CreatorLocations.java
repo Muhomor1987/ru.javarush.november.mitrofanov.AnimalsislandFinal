@@ -43,8 +43,7 @@ public class CreatorLocations implements Runnable {
                         for (Organisms k : Organisms.values()
                         ) {
                             for (int l = 0; l < countAnimalsMapOnLocationTMP.get(k); l++) {
-                                island.getLocations()[i][j].getAnimalsOnLocation().add(fabricOfAnimals.mapOfFounders.get(k));
-                                statistics.getStatistics().get(k).incrementAndGet();
+                                fabricOfAnimals.createNewAnimals(island.getLocations()[i][j],k,statistics);
                             }
                         }
                         System.out.println(Thread.currentThread().getName() +"___"+ island.getLocations()[i][j].getAnimalsOnLocation().size() +"___"+i+"___" + j);

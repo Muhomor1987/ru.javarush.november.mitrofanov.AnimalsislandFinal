@@ -30,17 +30,20 @@ public class Main {
         executorService.execute(creatorLocations);
         executorService.execute(creatorLocations);
         System.out.println(executorService.awaitTermination(2,TimeUnit.SECONDS));
-
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(statistics, 2, 3, TimeUnit.SECONDS);
-        Counter counter = new Counter(island);
-        scheduledExecutorService.scheduleAtFixedRate(counter,2,2,TimeUnit.SECONDS);
-
         for (int i = 0; i < island.getXMax(); i++) {
             for (int j = 0; j < island.getYMax(); j++) {
                 executorService.execute(island.getLocations()[i][j]);
             }
         }
+
+
+
+        Counter counter = new Counter(island);
+        //scheduledExecutorService.scheduleAtFixedRate(counter,2,2,TimeUnit.SECONDS);
+
+
 //        scheduledExecutorService.schedule(creatorLocations, 10, TimeUnit.MILLISECONDS);
 
 
