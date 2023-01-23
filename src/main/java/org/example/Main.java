@@ -3,9 +3,7 @@ package org.example;
 import IslandStructure.Island;
 import IslandStructure.Statistics;
 import entities.ConstantsAnimals;
-import util.Counter;
-import util.CreatorLocations;
-import util.FabricOfAnimals;
+import util.*;
 
 import java.io.IOException;
 import java.util.concurrent.*;
@@ -29,6 +27,11 @@ public class Main {
         System.out.println(executorService.awaitTermination(2,TimeUnit.SECONDS));
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(statistics, 2, 3, TimeUnit.SECONDS);
+        Mover mover = new Mover(island);
+        LifeCycle lifeCycle = new LifeCycle(island,fabricOfAnimals,statistics);
+        scheduledExecutorService.schedule(mover,6,TimeUnit.SECONDS);
+        scheduledExecutorService.schedule(lifeCycle,8,TimeUnit.SECONDS);
+
         Thread.sleep(5000);
         for (int i = 0; i < island.getXMax(); i++) {
             for (int j = 0; j < island.getYMax(); j++) {

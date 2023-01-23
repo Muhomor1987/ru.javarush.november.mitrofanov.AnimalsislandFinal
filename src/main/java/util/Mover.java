@@ -17,6 +17,10 @@ public class Mover implements Runnable {
 
     @Override
     public void run() {
+        move();
+    }
+
+    synchronized private void move() {
         ConcurrentLinkedQueue<Animal> queueMoveTMP = null;
 
         int xMax = island.getXMax();

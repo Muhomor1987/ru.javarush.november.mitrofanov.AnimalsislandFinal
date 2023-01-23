@@ -18,7 +18,7 @@ public class LifeCycle implements Runnable {
         this.statistics = statistics;
     }
 
-    private void lifeCycle(Location location, Iterator<Animal> iterator) {
+    synchronized private void lifeCycle(Location location, Iterator<Animal> iterator) {
         while (iterator.hasNext()) {
             Animal animal = iterator.next();
             animal.setWeight(animal.getWeight() - animal.getWEIGHT_MAX() * 0.1);
