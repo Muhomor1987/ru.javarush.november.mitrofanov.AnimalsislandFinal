@@ -44,24 +44,28 @@ public class Location implements Runnable {
                 Animal animalSecond = null;
 
  //               this.lock.lock();
-                if (animalsOnLocation.isEmpty()) {
-                    while (animalsOnLocation.isEmpty()) {
+//                if (animalsOnLocation.isEmpty()) {
+//                    while (animalsOnLocation.isEmpty()) {
  //                       this.lock.unlock();
 //                        Thread.sleep(1000);
-                    }
-                } else {
- //                   this.lock.lock();
-                    animalFirst = animalsOnLocation.remove(ThreadLocalRandom.current().nextInt(animalsOnLocation.size()-1));
-                }
-                if (animalsOnLocation.isEmpty()) {
-                    while (animalsOnLocation.isEmpty()) {
- //                       this.lock.unlock();
-//                        Thread.sleep(1000);
-                    }
-                } else {
+
+//                } else {
+// //                   this.lock.lock();
+//                    animalFirst = animalsOnLocation.remove(ThreadLocalRandom.current().nextInt(animalsOnLocation.size()-1));
+//                }
+//                if (animalsOnLocation.isEmpty()) {
+//                    while (animalsOnLocation.isEmpty()) {
+// //                       this.lock.unlock();
+////                        Thread.sleep(1000);
+//                    }
+//                } else {
   //                  this.lock.lock();
-                    animalSecond = animalsOnLocation.remove(ThreadLocalRandom.current().nextInt(animalsOnLocation.size()-1));
-                }
+            if(!animalsOnLocation.isEmpty()) {
+                animalFirst = animalsOnLocation.remove(ThreadLocalRandom.current().nextInt(animalsOnLocation.size() - 1));
+            }
+            if(!animalsOnLocation.isEmpty()) {
+                animalSecond = animalsOnLocation.remove(ThreadLocalRandom.current().nextInt(animalsOnLocation.size() - 1));
+            }
   //              this.lock.unlock();
                 assert animalFirst != null;
                 Organisms animalFirstTYPE = animalFirst.getTYPE();
@@ -70,74 +74,52 @@ public class Location implements Runnable {
                 //является ли животные одного вида
                 reproduction(animalFirst, animalSecond);
  //               this.lock.lock();
-                eat(animalFirst, animalSecond, animalFirstTYPE, animalSecondTYPE);
+                eat(animalFirst, animalSecond);
 //                Thread.sleep(100);
   //             this.lock.lock();
                 animalsOnLocation.addAll(animalsIn);
+                animalsIn.clear();
 //                Thread.sleep(10);
                 //move(animalFirst, animalSecond)
 
         }
     }
 
-    private void eat(Animal animalFirst, Animal animalSecond, Organisms animalFirstTYPE, Organisms animalSecondTYPE) {
+    synchronized private void eat(Animal animalFirst, Animal animalSecond) {
+        Organisms animalFirstTYPE = animalFirst.getTYPE();
+        Organisms animalSecondTYPE = animalSecond.getTYPE();
         if (animalFirst.getMAP_OF_FOOD().containsKey(animalSecondTYPE) || animalSecond.getMAP_OF_FOOD().containsKey(animalFirstTYPE)) {
             if (animalFirst.getMAP_OF_FOOD().containsKey(animalSecondTYPE)) {
-                whoEating(animalSecond, animalFirst, animalSecondTYPE);
+                whoEating(animalSecond, animalFirst);
             }
             if (animalSecond.getMAP_OF_FOOD().containsKey(animalFirstTYPE)) {
-                whoEating(animalFirst, animalSecond, animalFirstTYPE);
+                whoEating(animalFirst, animalSecond);
             }
-/*        } else {
-            eatPlant(animalFirst);
-            eatPlant(animalSecond);
-        }*/
+
         }
     }
 
-/*    private void eatPlant(Animal animal) {
-        if (animal.getMAP_OF_FOOD().containsKey(Organisms.PLANT)) {
-            if (animal.getWeight() <= 1) {
-                animal.setWeight(animal.getWEIGHT_MAX());
-                Animal plant = null;
-                if (!plantSet.isEmpty()) {
-                    plant = plantSet.poll();
-                    animal.setWeight(animal.getWEIGHT_MAX());
-                }
-                fabricOfAnimals.getPoolAnimals().get(Organisms.PLANT).add(plant);
 
+    synchronized private void whoEating(Animal animalDead, Animal animalWhoEat) {
+        Organisms animalDeadTYPE = animalDead.getTYPE();
+        if (ThreadLocalRandom.current().nextInt(100) >= animalWhoEat.getMAP_OF_FOOD().get(animalDeadTYPE)) {
+            if (animalDead.getWeight() >= animalWhoEat.getSATURATION()) {
+                animalWhoEat.setWeight(animalWhoEat.getWEIGHT_MAX());
             } else {
-                if (animal.getSATURATION() <= plantSet.size()) {
-                    animal.setWeight(animal.getWEIGHT_MAX());
-                    for (int i = 0; i < animal.getSATURATION(); i++) {
-                        plantSet.poll();
-                    }
-                } else {
-                    animal.setWeight(animal.weight + plantSet.size());
-                    fabricOfAnimals.getPoolAnimals().get(Organisms.PLANT).addAll(plantSet);
-                    plantSet.clear();
-                }
+                animalWhoEat.setWeight(animalWhoEat.getWeight() + animalDead.getWeight());
             }
-        }
-    }*/
-
-    private void whoEating(Animal animalFirst, Animal animalSecond, Organisms animalFirstTYPE) {
-        if (ThreadLocalRandom.current().nextInt(100) >= animalSecond.getMAP_OF_FOOD().get(animalFirstTYPE)) {
-            if (animalFirst.getWeight() >= animalSecond.getSATURATION()) {
-                animalSecond.setWeight(animalSecond.getWEIGHT_MAX());
-            } else {
-                animalSecond.setWeight(animalSecond.getWeight() + animalFirst.getWeight());
-            }
-            countAnimalsMapOnLocation.put(animalFirstTYPE, countAnimalsMapOnLocation.get(animalFirstTYPE) - 1);
-            statistics.getStatistics().get(animalFirstTYPE).decrementAndGet();
-            fabricOfAnimals.getPoolAnimals().get(animalFirstTYPE).add(animalFirst);
+            animalsForMoving.add(animalWhoEat);
+            countAnimalsMapOnLocation.put(animalDeadTYPE, countAnimalsMapOnLocation.get(animalDeadTYPE) - 1);
+            statistics.getStatistics().get(animalDeadTYPE).set(statistics.getStatistics().get(animalDeadTYPE).decrementAndGet());
+            fabricOfAnimals.getPoolAnimals().get(animalDeadTYPE).add(animalDead);
         }
     }
 
     private void reproduction(Animal animalFirst, Animal animalSecond) {
         if (animalFirst.getTYPE() == animalSecond.getTYPE()) {
             fabricOfAnimals.createNewAnimals(this, animalFirst.getTYPE(), statistics);
-
+            animalsIn.add(animalFirst);
+            animalsIn.add(animalSecond);
         }
     }
 

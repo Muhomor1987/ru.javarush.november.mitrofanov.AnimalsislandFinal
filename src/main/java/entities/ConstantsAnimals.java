@@ -1,12 +1,12 @@
 package entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import entities.types.*;
 import lombok.Getter;
 import java.io.Serializable;
 import java.util.HashMap;
 
-@JsonSerialize
+
 @Getter
 public class ConstantsAnimals implements Serializable {
 

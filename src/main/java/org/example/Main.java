@@ -3,14 +3,11 @@ package org.example;
 import IslandStructure.Island;
 import IslandStructure.Statistics;
 import entities.ConstantsAnimals;
-import entities.Organisms;
 import util.Counter;
 import util.CreatorLocations;
 import util.FabricOfAnimals;
-import util.Mapper;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.concurrent.*;
 
 public class Main {
@@ -32,13 +29,14 @@ public class Main {
         System.out.println(executorService.awaitTermination(2,TimeUnit.SECONDS));
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(statistics, 2, 3, TimeUnit.SECONDS);
+        Thread.sleep(5000);
         for (int i = 0; i < island.getXMax(); i++) {
             for (int j = 0; j < island.getYMax(); j++) {
                 executorService.execute(island.getLocations()[i][j]);
             }
         }
-        Thread.sleep(5000);
-        System.out.println(island.getLocations()[5][5].getAnimalsOnLocation().get(2).getSPEED());
+
+        System.out.println(island.getLocations()[5][5].getAnimalsOnLocation().get(2));
 
 
 

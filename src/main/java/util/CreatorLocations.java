@@ -47,7 +47,9 @@ public class CreatorLocations implements Runnable {
                             }
                         }
                         island.getLocations()[i][j].getAnimalsOnLocation().addAll(island.getLocations()[i][j].getAnimalsIn());
+                        island.getLocations()[i][j].getAnimalsIn().clear();
                         System.out.println(Thread.currentThread().getName() +"___"+ island.getLocations()[i][j].getAnimalsOnLocation().size() +"___"+i+"___" + j);
+                        island.getLocations()[i][j].getLock().unlock();
                     }
                 }
             }

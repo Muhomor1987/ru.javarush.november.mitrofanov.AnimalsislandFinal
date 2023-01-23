@@ -40,7 +40,7 @@ public class Statistics implements Runnable {
     public void run() {
                 for (Organisms value:Organisms.values()
                      ) {
-                    System.out.print(constantsAnimals.getICON().get(value)+": "+statistics.get(value)+"  ");
+                    System.out.print(constantsAnimals.getICON().get(value)+": "+statistics.get(value).get()+"  ");
                 }
         System.out.println();
 

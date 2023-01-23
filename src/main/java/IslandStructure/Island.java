@@ -23,7 +23,6 @@ public class Island{
 
     private int yMax;
 
-    private HashSet<Location> locationHashSet;
 
     private final int totalLocations;
 

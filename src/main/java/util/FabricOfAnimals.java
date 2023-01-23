@@ -62,14 +62,13 @@ public class FabricOfAnimals {
     }
 
 
-    public void createNewAnimals(Location location, Organisms TYPE, Statistics statistics) {
-
+    public synchronized void createNewAnimals(Location location, Organisms TYPE, Statistics statistics) {
         if (location.getCountAnimalsMapOnLocation().get(TYPE) < constantsAnimals.getMaxAnimalForKindOfLocations().get(TYPE)) {
 
                 if (poolAnimals.get(TYPE).isEmpty()) {
                     Animal animal = mapOfFounders.get(TYPE).clone();
                     animal.name = animal.getTYPE().name() + statistics.getStatistics().get(TYPE).getAndIncrement();
-                    animal.weight = ThreadLocalRandom.current().nextDouble(constantsAnimals.getMaxWeight().get(TYPE));
+                    animal.weight = ThreadLocalRandom.current().nextDouble(constantsAnimals.getMaxWeight().get(TYPE)/2,constantsAnimals.getMaxWeight().get(TYPE));
                     location.getAnimalsIn().add(animal);
                 } else {
                     location.getAnimalsIn().add(poolAnimals.get(TYPE).remove(0));
